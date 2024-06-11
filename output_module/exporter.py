@@ -1,2 +1,5 @@
-def export_statement(consolidated_statement):
-    return
+from filter import Filter
+
+class Exporter(Filter):
+    def process(self, data):
+        return

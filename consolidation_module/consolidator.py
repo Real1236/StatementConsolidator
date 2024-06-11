@@ -1,2 +1,5 @@
-def consolidate_statements(processed_statements):
-    return
+from filter import Filter
+
+class Consolidator(Filter):
+    def process(self, data):
+        return
