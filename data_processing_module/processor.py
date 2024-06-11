@@ -9,6 +9,7 @@ class Processor(Filter):
         for fileName, statement in data.items():
             try:
                 processed_statements.append(StatementFactory.create_statement(statement))
+                print(processed_statements[-1])
             except ValueError as e:
                 print(fileName + " error: " + str(e))
 
