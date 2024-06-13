@@ -13,9 +13,8 @@ class Exporter(Filter):
         for i, field in enumerate(header):
             worksheet.write(0, i, field)
 
-        row = 0
+        row = 1
         for transaction in data:
-            row = 1
             col = 0
             for value in vars(transaction).values():
                 if (type(value) != date):
