@@ -3,7 +3,7 @@ import csv
 from filter import Filter
 
 class Reader(Filter):
-    def process(self, data):
+    def process(self, data: None) -> dict:
         # Get the directory where the script is located
         directory = os.path.dirname(os.path.realpath(__file__))
 
