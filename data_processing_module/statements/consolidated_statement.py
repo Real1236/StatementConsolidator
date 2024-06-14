@@ -12,11 +12,11 @@ class ConsolidatedStatement(Statement):
         for i in range(1, len(statement)):
             transaction = statement[i]
             transactions.append(Transaction(
-                transaction[0] if transaction[0] else "",
-                transaction[1] if transaction[1] else "",
+                transaction[0],
+                transaction[1],
                 transaction[2].date(),
-                transaction[3] if transaction[3] else "",
-                transaction[4] if transaction[4] else "",
+                transaction[3],
+                transaction[4],
                 float(transaction[5])
             ))
         return transactions

@@ -29,10 +29,12 @@ class Exporter(Filter):
         for transaction in data:
             col = 0
             for value in vars(transaction).values():
-                if (type(value) != date):
-                    worksheet.write(row, col, value)
-                else:
+                if (type(value) == str):
+                    worksheet.write_string(row, col, value)
+                elif (type(value) == date):
                     worksheet.write_datetime(row, col, value, workbook.add_format({'num_format': 'yyyy-mm-dd'}))
+                else:
+                    worksheet.write_number(row, col, value)
                 col += 1
             row += 1
         
