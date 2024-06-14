@@ -11,7 +11,7 @@ class StatementFactory():
         first_row_str = ",".join(first_row)
         if first_row_str == 'Account Type,Account Number,Transaction Date,Cheque Number,Description 1,Description 2,CAD$,USD$':
             return RbcStatement(statement)
-        elif first_row_str == 'Bank,Account Type,Transaction Date,Description 1,Description 2,Amount':
+        elif first_row_str == 'Bank,Account Type,Transaction Date,Description 1,Description 2,Amount,Category':
             return ConsolidatedStatement(statement)
         elif re.match(r'\d{2}/\d{2}/\d{4}', first_row[0]) and 'Reference:' in first_row[1]:
             return AmexStatement(statement)

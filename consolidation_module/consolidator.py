@@ -10,10 +10,14 @@ class Consolidator(Filter):
         transactions_set = set()
         for statement in data:
             for transaction in statement.statement:
-                if str(transaction) in transactions_set:
-                    continue
-                transactions.append(transaction)
-                transactions_set.add(str(transaction))
+                if str(transaction) not in transactions_set:
+                    transactions.append(transaction)
+                    transactions_set.add(str(transaction))
+                elif transaction.category:
+                    for t in transactions:
+                        if str(t) == str(transaction):
+                            t.category = transaction.category
+                            break
 
         transactions.sort(key=lambda x: x.transactionDate)
         return transactions

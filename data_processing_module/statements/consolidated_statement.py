@@ -17,6 +17,7 @@ class ConsolidatedStatement(Statement):
                 transaction[2].date(),
                 transaction[3],
                 transaction[4],
-                float(transaction[5])
+                float(transaction[5]),
+                transaction[6]
             ))
         return transactions

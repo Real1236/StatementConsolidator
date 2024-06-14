@@ -8,7 +8,8 @@ class Transaction():
         transactionDate: date = date.today(), 
         description1: str = '', 
         description2: str = '', 
-        amount: float = 0.0
+        amount: float = 0.0,
+        category: str = ''
     ):
         self.bank = bank
         self.accountType = accountType
@@ -16,6 +17,7 @@ class Transaction():
         self.description1 = description1
         self.description2 = description2
         self.amount = amount
+        self.category = category
 
     def __str__(self):
         return (

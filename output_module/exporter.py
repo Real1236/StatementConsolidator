@@ -16,12 +16,13 @@ def camel_to_title(camel_str):
 class Exporter(Filter):
     def process(self, data: list[Transaction]) -> None:
         workbook = xlsxwriter.Workbook('SpendTracker.xlsx')
+        workbook.set_size(1500, 1000)
         worksheet = workbook.add_worksheet()
 
         blank_transaction = Transaction()
         header = list(vars(blank_transaction).keys())
         for i, field in enumerate(header):
-            worksheet.write(0, i, camel_to_title(field))
+            worksheet.write_string(0, i, camel_to_title(field))
             worksheet.set_column_pixels(i, i, 100 if "description" not in field else 200)
         worksheet.set_row(0, cell_format=workbook.add_format({'bold': True}))
 
