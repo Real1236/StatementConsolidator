@@ -1,5 +1,7 @@
 import os
 import csv
+
+from openpyxl import load_workbook
 from filter import Filter
 
 class Reader(Filter):
@@ -10,16 +12,22 @@ class Reader(Filter):
         # Get a list of all files in the directory
         all_files = os.listdir(directory)
 
-        # Filter the list to only include .csv files
-        csv_files = [file for file in all_files if file.endswith('.csv')]
-
         # Create a dictionary to store the file contents
         file_contents = {}
 
-        # For each .csv file, read the file
-        for csv_file in csv_files:
-            with open(os.path.join(directory, csv_file), 'r') as file:
-                reader = csv.reader(file)
-                file_contents[csv_file] = list(reader)
+        # Convert each file to a list of rows and store it in the dictionary
+        for file_name in all_files:
+            if file_name.endswith('.csv'):
+                with open(os.path.join(directory, file_name), 'r') as file:
+                    reader = csv.reader(file)
+                    file_contents[file_name] = list(reader)
+            elif file_name == "SpendTracker.xlsx":
+                with open(os.path.join(directory, file_name), 'rb') as file:
+                    workbook = load_workbook(file)
+                    sheet = workbook.active
+                    rows = []
+                    for row in sheet.iter_rows(values_only=True):
+                        rows.append(list(row))
+                    file_contents[file_name] = rows
 
         return file_contents
