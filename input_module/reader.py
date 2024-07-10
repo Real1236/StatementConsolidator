@@ -1,13 +1,19 @@
 import os
 import csv
+import sys
 
 from openpyxl import load_workbook
 from filter import Filter
 
 class Reader(Filter):
     def process(self, data: None) -> dict:
-        # Get the directory where the script is located
-        directory = os.path.dirname(os.path.realpath(__file__))
+        # Check if we are running as a frozen executable (e.g., packaged with PyInstaller)
+        if getattr(sys, 'frozen', False):
+            # If the application is running as a bundled executable, use the executable's directory
+            directory = os.path.dirname(sys.executable)
+        else:
+            # Otherwise, we're running as a normal script, use the script's directory
+            directory = os.path.dirname(os.path.realpath(__file__))
 
         # Get a list of all files in the directory
         all_files = os.listdir(directory)
