@@ -18,6 +18,6 @@ class CibcStatement(Statement):
                 datetime.strptime(transaction[0], "%Y-%m-%d").date(),
                 transaction[1],
                 "",
-                float(transaction[2])
+                -float(transaction[2])
             ))
         return transactions

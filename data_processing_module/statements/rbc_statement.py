@@ -17,6 +17,6 @@ class RbcStatement(Statement):
                 datetime.strptime(transaction[2], "%m/%d/%Y").date(),
                 transaction[4],
                 transaction[5],
-                float(transaction[6]) * - 1
+                -float(transaction[6]) * - 1
             ))
         return transactions

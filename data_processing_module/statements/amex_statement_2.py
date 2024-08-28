@@ -17,6 +17,6 @@ class AmexStatement2(Statement):
                 datetime.strptime(transaction[0], "%d %b %Y").date(),
                 transaction[2],
                 "",
-                float(transaction[3])
+                -float(transaction[3])
             ))
         return transactions
