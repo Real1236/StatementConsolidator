@@ -1,3 +1,5 @@
+import os
+import sys
 import xlsxwriter.worksheet
 from filter import Filter
 import xlsxwriter
@@ -17,7 +19,15 @@ def camel_to_title(camel_str):
 
 class Exporter(Filter):
     def process(self, data: list[Transaction]) -> None:
-        workbook = xlsxwriter.Workbook('SpendTracker.xlsx')
+        # Check if we are running as a frozen executable (e.g., packaged with PyInstaller)
+        if getattr(sys, 'frozen', False):
+            directory = os.path.dirname(sys.executable)
+        else:
+            directory = os.path.dirname(os.path.realpath(__file__)).replace("output_module", "resources")
+
+        file_path = os.path.join(directory, 'SpendTracker.xlsx')
+            
+        workbook = xlsxwriter.Workbook(file_path)
         workbook.set_size(1500, 1000)
         transactionsWorksheet = workbook.add_worksheet(name="Transactions")
         monthlySummaryWorksheet = workbook.add_worksheet(name="Summary")

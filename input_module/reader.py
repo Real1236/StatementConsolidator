@@ -13,7 +13,7 @@ class Reader(Filter):
             directory = os.path.dirname(sys.executable)
         else:
             # Otherwise, we're running as a normal script, use the script's directory
-            directory = os.path.dirname(os.path.realpath(__file__))
+            directory = os.path.dirname(os.path.realpath(__file__)).replace("input_module", "resources")
 
         # Get a list of all files in the directory
         all_files = os.listdir(directory)
