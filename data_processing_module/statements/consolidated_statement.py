@@ -18,6 +18,7 @@ class ConsolidatedStatement(Statement):
                 transaction[3],
                 transaction[4],
                 float(transaction[5]),
-                transaction[6]
+                transaction[6],
+                transaction[7]
             ))
         return transactions

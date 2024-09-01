@@ -55,6 +55,8 @@ class Exporter(Filter):
                     worksheet.write_string(row, col, value)
                 elif (type(value) == date):
                     worksheet.write_datetime(row, col, value, workbook.add_format({'num_format': 'yyyy-mm-dd'}))
+                elif (not value):
+                    worksheet.write_blank(row, col, None)
                 else:
                     worksheet.write_number(row, col, value)
                 col += 1
@@ -96,7 +98,7 @@ class Exporter(Filter):
                     Transactions!$H:$H, "Mom",
                     Transactions!$G:$G, {headerCell})"""
                 )
-            worksheet.write_formula(month, 8, f"=SUM({xl_rowcol_to_cell(month, 1)}:{xl_rowcol_to_cell(month, 7)})")
+            worksheet.write_formula(month, 8, f"=SUM({xl_rowcol_to_cell(month, 1)}:{xl_rowcol_to_cell(month, 6)})")
 
             # Include 13 just for formula purposes, hidden in white
             worksheet.write_number(13, 0, 13, workbook.add_format({'font_color': '#FFFFFF'}))

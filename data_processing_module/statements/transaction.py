@@ -9,7 +9,8 @@ class Transaction():
         description1: str = '', 
         description2: str = '', 
         amount: float = 0.0,
-        category: str = ''
+        category: str = '',
+        splitWith: str = ''
     ):
         self.bank = bank
         self.accountType = accountType
@@ -18,6 +19,7 @@ class Transaction():
         self.description2 = description2
         self.amount = amount
         self.category = category
+        self.splitWith = splitWith
 
     def __str__(self):
         return (
@@ -25,6 +27,5 @@ class Transaction():
             f"accountType={self.accountType},\n"
             f"transactionDate={self.transactionDate},\n"
             f"description1={self.description1},\n"
-            f"description2={self.description2},\n"
             f"amount={self.amount}"
         )

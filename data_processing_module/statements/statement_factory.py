@@ -12,7 +12,7 @@ class StatementFactory():
         first_row_str = ",".join(first_row)
         if first_row_str == 'Account Type,Account Number,Transaction Date,Cheque Number,Description 1,Description 2,CAD$,USD$':
             return RbcStatement(statement)
-        elif first_row_str == 'Bank,Account Type,Transaction Date,Description 1,Description 2,Amount,Category':
+        elif first_row_str == 'Bank,Account Type,Transaction Date,Description 1,Description 2,Amount,Category,Split With':
             return ConsolidatedStatement(statement)
         elif first_row_str == 'Date,Date Processed,Description,Amount':
             return AmexStatement2(statement)

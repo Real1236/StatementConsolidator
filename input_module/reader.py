@@ -29,8 +29,8 @@ class Reader(Filter):
                     file_contents[file_name] = list(reader)
             elif file_name == "SpendTracker.xlsx":
                 with open(os.path.join(directory, file_name), 'rb') as file:
-                    workbook = load_workbook(file)
-                    sheet = workbook.active
+                    workbook = load_workbook(file, data_only=True)
+                    sheet = workbook.__getitem__("Transactions")
                     rows = []
                     for row in sheet.iter_rows(values_only=True):
                         rows.append(list(row))
