@@ -42,8 +42,9 @@ categoryBank = {
     "ST. LOUIS BAR & GRILL": "Eating Out",
     "SPOTHERO": "Transportation",
     "MAGIC NOODLE": "Eating Out",
-    "FRESHCO": "Groceries",
+    "FRESHCO": "Grocery",
     "TEN REN'S TEA": "Eating Out",
+    "LYFT": "Transportation",
 }
 
 class Consolidator(Filter):

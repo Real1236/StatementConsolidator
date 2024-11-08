@@ -5,6 +5,7 @@ from data_processing_module.statements.amex_statement_3 import AmexStatement3
 from data_processing_module.statements.cibc_statement import CibcStatement
 from data_processing_module.statements.consolidated_statement import ConsolidatedStatement
 from data_processing_module.statements.rbc_statement import RbcStatement
+from data_processing_module.statements.scotia_statement import ScotiaStatement
 
 class StatementFactory():
     @staticmethod
@@ -23,5 +24,7 @@ class StatementFactory():
             return CibcStatement(statement)
         elif first_row_str == 'Date,Date Processed,Description,Card Member,Account #,Amount':
             return AmexStatement3(statement)
+        elif 'Filter,Date,Description,Sub-description,Status,Type of Transaction,Amount' in first_row_str:
+            return ScotiaStatement(statement)
         else:
             raise ValueError("Unknown statement format")
