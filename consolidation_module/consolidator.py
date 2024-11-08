@@ -1,8 +1,50 @@
-from typing import List
+from typing import List, Optional
 from data_processing_module.statements.consolidated_statement import ConsolidatedStatement
 from data_processing_module.statements.statement import Statement
 from data_processing_module.statements.transaction import Transaction
 from filter import Filter
+
+categoryBank = {
+    "PETRO CANADA": "Transportation",
+    "TIM HORTONS": "Eating Out",
+    "TIMBER CREEK GOLF": "Recreation",
+    "VALUE VILLAGE": "Miscellaneous",
+    "TEMU.COM": "Shopping",
+    "MCDONALD'S": "Eating Out",
+    "WENDY'S": "Eating Out",
+    "PRESTO AUTO": "Transportation",
+    "ADIDAS": "Shopping",
+    "GRAND BURRITO": "Eating Out",
+    "JACK AND JONES": "Shopping",
+    "HOLLISTER": "Shopping",
+    "JACK & JONES": "Shopping",
+    "COSTCO GAS": "Transportation",
+    "A & W": "Eating Out",
+    "CINEPLEX": "Recreation",
+    "DAIRY QUEEN": "Eating Out",
+    "SWISS CHALET": "Eating Out",
+    "UNIQLO": "Shopping",
+    "UNIONVILLE ARMS PUB": "Eating Out",
+    "HUB CLIMBING": "Recreation",
+    "KIBO MARKET UNION": "Eating Out",
+    "DENNY'S": "Eating Out",
+    "LS BUSHWOOD GOLF CLUB": "Recreation",
+    "YI FANG TAIWAN FRUIT": "Eating Out",
+    "ACTIVATE GAMES": "Recreation",
+    "PIE BAR": "Eating Out",
+    "PHO QUINN": "Eating Out",
+    "GOOD CATCH BAR & CAFE": "Eating Out",
+    "BRITISH AIRWAYS": "Transportation",
+    "ESSO GAS STATION": "Transportation",
+    "ALGONQUIN OUTFITTERS": "Recreation",
+    "ONTARIO CANOE TRIP": "Recreation",
+    "TOO GOOD TO GO": "Eating Out",
+    "ST. LOUIS BAR & GRILL": "Eating Out",
+    "SPOTHERO": "Transportation",
+    "MAGIC NOODLE": "Eating Out",
+    "FRESHCO": "Groceries",
+    "TEN REN'S TEA": "Eating Out",
+}
 
 class Consolidator(Filter):
     def process(self, data: List[Statement]) -> List[Transaction]:
@@ -14,13 +56,17 @@ class Consolidator(Filter):
         itemToCategory = self.getCategories(consolidatedStatement) if consolidatedStatement else {}
 
         # Consolidate and sort transactions from all statements
-        transactions = []
+        transactions: List[Transaction] = []
         transactions_set = set()
         for statement in data:
             for transaction in statement.statement:
+                # Remove duplicate transactions and assign categories
                 if str(transaction) not in transactions_set:
                     if not transaction.category:
-                        transaction.category = itemToCategory[transaction.description1] if transaction.description1 in itemToCategory else None
+                        if transaction.description1 in itemToCategory:
+                            transaction.category = itemToCategory[transaction.description1]
+                        else:
+                            transaction.category = self.checkCategoryBank(transaction.description1)
                     transactions.append(transaction)
                     transactions_set.add(str(transaction))
                 else:
@@ -45,3 +91,8 @@ class Consolidator(Filter):
 
         return itemToCategory
 
+    def checkCategoryBank(self, description: str) -> Optional[str]:
+        for key in categoryBank:
+            if key in description:
+                return categoryBank[key]
+        return None
