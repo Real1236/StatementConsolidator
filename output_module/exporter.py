@@ -62,6 +62,25 @@ class Exporter(Filter):
                 col += 1
             row += 1
 
+        # Conditional formatting
+        worksheet.conditional_format(f"F2:F{len(data) * 2}", {
+            'type': 'cell', 
+            'criteria': '>', 
+            'value': 0, 
+            'format': workbook.add_format({
+                'bg_color': '#C6EFCE', 'font_color': '#006100'
+            })
+        })
+
+        worksheet.conditional_format(f"F2:F{len(data) * 2}", {
+            'type': 'cell', 
+            'criteria': '<', 
+            'value': 0, 
+            'format': workbook.add_format({
+                'bg_color': '#FFC7CE', 'font_color': '#9C0006'
+            })
+        })
+
     def createSummarySheet(self, workbook, worksheet):
         # Headers
         headers = ["Month", "Recreation", "Grocery", "Eating Out", "Transportation", "Shopping", "Miscellaneous", "One Time", "Total"]
